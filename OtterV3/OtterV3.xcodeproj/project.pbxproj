@@ -16,6 +16,18 @@
 		45E3E7C1244129EF00BE95E8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 45E3E7BF244129EF00BE95E8 /* GoogleService-Info.plist */; };
 		45E3E7C52441304800BE95E8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E3E7C42441304800BE95E8 /* LoginViewController.swift */; };
 		45E3E7C62441304800BE95E8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E3E7C42441304800BE95E8 /* LoginViewController.swift */; };
+		45E3E7C9244138C000BE95E8 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E3E7C8244138C000BE95E8 /* Colors.swift */; };
+		45E3E7CA244138C000BE95E8 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E3E7C8244138C000BE95E8 /* Colors.swift */; };
+		45E3E7CC244139C000BE95E8 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E3E7CB244139C000BE95E8 /* OnboardingViewController.swift */; };
+		45E3E7CD244139C000BE95E8 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E3E7CB244139C000BE95E8 /* OnboardingViewController.swift */; };
+		45E3E7CF24413E5700BE95E8 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E3E7CE24413E5700BE95E8 /* BaseViewController.swift */; };
+		45E3E7D024413E5700BE95E8 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E3E7CE24413E5700BE95E8 /* BaseViewController.swift */; };
+		45E3E7D224413F4000BE95E8 /* CustomLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E3E7D124413F4000BE95E8 /* CustomLoginButton.swift */; };
+		45E3E7D324413F4000BE95E8 /* CustomLoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E3E7D124413F4000BE95E8 /* CustomLoginButton.swift */; };
+		45E3E7D524413FB000BE95E8 /* CustomLoginTransitionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E3E7D424413FB000BE95E8 /* CustomLoginTransitionButton.swift */; };
+		45E3E7D624413FB000BE95E8 /* CustomLoginTransitionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E3E7D424413FB000BE95E8 /* CustomLoginTransitionButton.swift */; };
+		45E3E7D82441402800BE95E8 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E3E7D72441402800BE95E8 /* Extensions.swift */; };
+		45E3E7D92441402800BE95E8 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E3E7D72441402800BE95E8 /* Extensions.swift */; };
 		51637C94A7526FFF654C31D6 /* Pods_OtterV3Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD87A4F2D7446C52CD049DDC /* Pods_OtterV3Tests.framework */; };
 		CE93758DA196CE011F2F8498 /* Pods_OtterV3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 666EC810585334E6EC23F03F /* Pods_OtterV3.framework */; };
 /* End PBXBuildFile section */
@@ -42,6 +54,12 @@
 		451D1B7E24411D7F00F56FC8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		45E3E7BF244129EF00BE95E8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		45E3E7C42441304800BE95E8 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		45E3E7C8244138C000BE95E8 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		45E3E7CB244139C000BE95E8 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
+		45E3E7CE24413E5700BE95E8 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		45E3E7D124413F4000BE95E8 /* CustomLoginButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLoginButton.swift; sourceTree = "<group>"; };
+		45E3E7D424413FB000BE95E8 /* CustomLoginTransitionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLoginTransitionButton.swift; sourceTree = "<group>"; };
+		45E3E7D72441402800BE95E8 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		4AAE4EC34316A80601F28EEE /* Pods-OtterV3Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OtterV3Tests.debug.xcconfig"; path = "Target Support Files/Pods-OtterV3Tests/Pods-OtterV3Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		539EEBE40B3254920A722B0F /* Pods-OtterV3.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OtterV3.debug.xcconfig"; path = "Target Support Files/Pods-OtterV3/Pods-OtterV3.debug.xcconfig"; sourceTree = "<group>"; };
 		666EC810585334E6EC23F03F /* Pods_OtterV3.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_OtterV3.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -95,6 +113,7 @@
 			children = (
 				451D1B6524411D7C00F56FC8 /* AppDelegate.swift */,
 				451D1B6724411D7C00F56FC8 /* SceneDelegate.swift */,
+				45E3E7C7244138AD00BE95E8 /* CustomStuff */,
 				45E3E7C324412F4500BE95E8 /* Models */,
 				45E3E7C224412F3600BE95E8 /* ViewControllers */,
 				451D1B6E24411D7F00F56FC8 /* Assets.xcassets */,
@@ -118,6 +137,8 @@
 			isa = PBXGroup;
 			children = (
 				45E3E7C42441304800BE95E8 /* LoginViewController.swift */,
+				45E3E7CB244139C000BE95E8 /* OnboardingViewController.swift */,
+				45E3E7CE24413E5700BE95E8 /* BaseViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -127,6 +148,17 @@
 			children = (
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		45E3E7C7244138AD00BE95E8 /* CustomStuff */ = {
+			isa = PBXGroup;
+			children = (
+				45E3E7C8244138C000BE95E8 /* Colors.swift */,
+				45E3E7D124413F4000BE95E8 /* CustomLoginButton.swift */,
+				45E3E7D424413FB000BE95E8 /* CustomLoginTransitionButton.swift */,
+				45E3E7D72441402800BE95E8 /* Extensions.swift */,
+			);
+			path = CustomStuff;
 			sourceTree = "<group>";
 		};
 		50880B430A0401F8C6275BD1 /* Frameworks */ = {
@@ -337,8 +369,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				45E3E7C52441304800BE95E8 /* LoginViewController.swift in Sources */,
+				45E3E7D82441402800BE95E8 /* Extensions.swift in Sources */,
+				45E3E7C9244138C000BE95E8 /* Colors.swift in Sources */,
+				45E3E7CC244139C000BE95E8 /* OnboardingViewController.swift in Sources */,
+				45E3E7D224413F4000BE95E8 /* CustomLoginButton.swift in Sources */,
 				451D1B6624411D7C00F56FC8 /* AppDelegate.swift in Sources */,
+				45E3E7D524413FB000BE95E8 /* CustomLoginTransitionButton.swift in Sources */,
 				451D1B6824411D7C00F56FC8 /* SceneDelegate.swift in Sources */,
+				45E3E7CF24413E5700BE95E8 /* BaseViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,8 +384,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				45E3E7D324413F4000BE95E8 /* CustomLoginButton.swift in Sources */,
+				45E3E7D024413E5700BE95E8 /* BaseViewController.swift in Sources */,
 				45E3E7C62441304800BE95E8 /* LoginViewController.swift in Sources */,
+				45E3E7D92441402800BE95E8 /* Extensions.swift in Sources */,
+				45E3E7CA244138C000BE95E8 /* Colors.swift in Sources */,
 				451D1B7D24411D7F00F56FC8 /* OtterV3Tests.swift in Sources */,
+				45E3E7CD244139C000BE95E8 /* OnboardingViewController.swift in Sources */,
+				45E3E7D624413FB000BE95E8 /* CustomLoginTransitionButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
