@@ -9,13 +9,16 @@
 import UIKit
 import FirebaseAuth
 import TextFieldEffects
+import Lottie
 
 class ForgotPasswordViewController: BaseViewController {
 
     let label = UILabel()
     let emailTextField = MadokaTextField()
     let backButton = UIButton()
+    let backToLogin = CustomLoginButton()
     let sendEmailButton = CustomLoginButton()
+    let animationView = AnimationView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +31,7 @@ class ForgotPasswordViewController: BaseViewController {
         view.addSubview(label)
         view.addSubview(emailTextField)
         view.addSubview(backButton)
+        view.addSubview(backToLogin)
         view.addSubview(sendEmailButton)
         
         setConstraints()
@@ -44,6 +48,10 @@ class ForgotPasswordViewController: BaseViewController {
         backButton.setTitle("<-", for: .normal)
         sendEmailButton.addTarget(self, action: #selector(sendEmailTapped), for: .touchUpInside)
         sendEmailButton.setTitle("Send Email", for: .normal)
+        backToLogin.alpha = 0
+        backToLogin.isEnabled = false
+        backToLogin.setTitle("Back to Login", for: .normal)
+        backToLogin.addTarget(self, action: #selector(backToLoginTapped), for: .touchUpInside)
         
     }
     
@@ -74,6 +82,13 @@ class ForgotPasswordViewController: BaseViewController {
             make.topMargin.equalTo(self.emailTextField.snp_bottomMargin).offset(50)
             make.width.equalToSuperview().multipliedBy(0.75)
         }
+        
+        backToLogin.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.height.equalTo(40)
+            make.topMargin.equalTo(self.emailTextField.snp_bottomMargin).offset(50)
+            make.width.equalToSuperview().multipliedBy(0.75)
+        }
     }
     
     func setUpTFUI() {
@@ -81,8 +96,28 @@ class ForgotPasswordViewController: BaseViewController {
         emailTextField.delegate = self
     }
     
+    func passwordReset() {
+        DispatchQueue.main.async {
+            UIView.animate(withDuration: 0.2) {
+                self.sendEmailButton.alpha = 0
+                self.emailTextField.alpha = 0
+                self.label.text = "An email has been sent, please click the link provided in the email to reset your password"
+                
+            }
+            self.sendEmailButton.isEnabled = false
+            self.backToLogin.isEnabled = true
+            UIView.animate(withDuration: 0.2) {
+                self.backToLogin.alpha = 1
+            }
+        }
+    }
+    
     @objc func backButtonTapped() {
         print("Back button tapped")
+        navigationController?.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func backToLoginTapped() {
         navigationController?.dismiss(animated: true, completion: nil)
     }
     
@@ -97,7 +132,7 @@ class ForgotPasswordViewController: BaseViewController {
                 }
                 else {
                     print("Password Recovery Email Sent!")
-                    //self.navigationController?.pushViewController(PasswordRecoveredViewController(), animated: true)
+                    self.passwordReset()
                 }
             }
         } else {

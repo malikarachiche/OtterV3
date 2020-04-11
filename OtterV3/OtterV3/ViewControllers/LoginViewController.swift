@@ -154,7 +154,6 @@ class LoginViewController: BaseViewController {
     
     @objc func noAccountTapped() {
         print("No account tapped")
-//        let navigationController = UINavigationController(rootViewController: SignUpViewController())
         self.navigationController?.pushViewController(SignUpViewController(), animated: true)
     }
     
