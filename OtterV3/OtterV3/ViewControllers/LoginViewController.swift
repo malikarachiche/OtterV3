@@ -15,13 +15,15 @@ import TextFieldEffects
 class LoginViewController: BaseViewController {
 
     let otterImage = UIImageView()
-    let emailTextField = HoshiTextField()
-    let passwordTextField = HoshiTextField()
+    let emailTextField = MadokaTextField()
+    let passwordTextField = MadokaTextField()
     
     let loginButton = CustomLoginButton()
     let googleButton = GIDSignInButton()
     let noAccountButton = CustomLoginTransitionButton()
     let forgotPasswordButton = CustomLoginTransitionButton()
+    
+    let database = Firestore.firestore()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,13 +79,13 @@ class LoginViewController: BaseViewController {
         
         passwordTextField.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
-            make.topMargin.equalTo(self.emailTextField.snp_bottomMargin).offset(25)
+            make.topMargin.equalTo(self.emailTextField.snp_bottomMargin).offset(20)
             make.height.equalTo(55)
             make.width.equalToSuperview().multipliedBy(0.61)
         }
         
         forgotPasswordButton.snp.makeConstraints { (make) in
-            make.leftMargin.equalTo(self.passwordTextField.snp_leftMargin)
+            make.leftMargin.equalTo(self.passwordTextField.snp_leftMargin).inset(6)
             make.topMargin.equalTo(self.passwordTextField.snp_bottomMargin).offset(25)
             make.height.equalTo(18)
             make.width.equalToSuperview().multipliedBy(0.32)
@@ -110,8 +112,6 @@ class LoginViewController: BaseViewController {
             make.width.equalToSuperview().multipliedBy(0.55)
         }
         
-        
-        
     }
     
     @objc func loginButtonTapped() {
@@ -122,7 +122,14 @@ class LoginViewController: BaseViewController {
                 if Auth.auth().currentUser!.isEmailVerified {
                     // Sets user email to the email provided once it is verified
                     Auth.auth().currentUser?.updateEmail(to: self.emailTextField.text!, completion: nil)
-                    //self.present(MainTabBarController(), animated: true, completion: nil)
+                    
+                    let user = Auth.auth().currentUser
+                    if let user = user {
+                        print(self.database.collection("users").whereField("email", isEqualTo: user.email ?? "nil"))
+                    }
+                    
+                    //self.navigationController?.pushViewController(MainTabBarController(), animated: true)
+                    
                 }
                 else {
                     // If email isn't verified
@@ -144,7 +151,7 @@ class LoginViewController: BaseViewController {
     @objc func noAccountTapped() {
         print("No account tapped")
 //        let navigationController = UINavigationController(rootViewController: SignUpViewController())
-//        present(navigationController, animated: true, completion: nil)
+        self.navigationController?.pushViewController(SignUpViewController(), animated: true)
     }
     
     @objc func forgotPasswordTapped() {

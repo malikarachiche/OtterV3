@@ -27,11 +27,22 @@ extension HoshiTextField {
     func setTextField(string: String) {
         placeholder = string
         placeholderFontScale = 0.85
-        
         placeholderColor = UIColor.white
         borderInactiveColor = UIColor.white
         borderActiveColor = Colors.darkTeal
         textColor = UIColor.white
         clearButtonMode = .whileEditing
     }
+}
+
+extension MadokaTextField {
+    func setTextField(string: String) {
+        placeholder = string
+        placeholderFontScale = 0.75
+        placeholderColor = UIColor.white
+        borderColor = UIColor.white
+        textColor = UIColor.white
+        clearButtonMode = .whileEditing
+    }
+    
 }
