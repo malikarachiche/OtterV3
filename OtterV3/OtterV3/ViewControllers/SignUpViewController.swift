@@ -12,6 +12,8 @@ import FirebaseAuth
 
 class SignUpViewController: BaseViewController {
 
+    // TODO: Figure out what to do with careerTextField
+    
     let otterImage = UIImageView()
     let emailTextField = MadokaTextField()
     let passwordTextField = MadokaTextField()
@@ -51,9 +53,13 @@ class SignUpViewController: BaseViewController {
     
     func setUpTFUI() {
         emailTextField.setTextField(string: "Email...")
+        emailTextField.delegate = self
         passwordTextField.setTextField(string: "Password...")
+        passwordTextField.delegate = self
         confirmPasswordTextField.setTextField(string: "Confirm Password...")
+        confirmPasswordTextField.delegate = self
         careerTextField.setTextField(string: "Occupation...")
+        careerTextField.delegate = self
     }
     
     func setConstraints() {
@@ -67,7 +73,7 @@ class SignUpViewController: BaseViewController {
         
         emailTextField.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
-            make.topMargin.equalTo(self.otterImage.snp_bottomMargin).offset(-35)
+            make.topMargin.equalTo(self.otterImage.snp_bottomMargin).offset(-25)
             make.height.equalTo(55)
             make.width.equalToSuperview().multipliedBy(0.61)
         }
@@ -138,6 +144,14 @@ class SignUpViewController: BaseViewController {
     @objc func alreadyHaveAccountTapped() {
         print("Button Tapped")
         self.navigationController?.popViewController(animated: false)
+    }
+}
+
+extension SignUpViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        textField.resignFirstResponder()
+        return true
     }
 }
 

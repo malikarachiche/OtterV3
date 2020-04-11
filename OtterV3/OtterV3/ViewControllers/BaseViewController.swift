@@ -12,7 +12,7 @@ class BaseViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
 
@@ -27,7 +27,7 @@ class BaseViewController: UIViewController {
      Allows dismissal of keyboard
      */
     func setUpGestureRecognizer() {
-        let tapRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(LoginViewController.dismissKeyboard))
+        let tapRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(BaseViewController.dismissKeyboard))
         
         self.view.addGestureRecognizer(tapRecognizer)
         tapRecognizer.cancelsTouchesInView = false
@@ -35,11 +35,6 @@ class BaseViewController: UIViewController {
     
     @objc func dismissKeyboard() {
         view.endEditing(true)
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        self.view.endEditing(true)
-        return true
     }
 
 }

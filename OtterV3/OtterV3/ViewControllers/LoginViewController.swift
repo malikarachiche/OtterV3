@@ -14,6 +14,8 @@ import TextFieldEffects
 
 class LoginViewController: BaseViewController {
 
+    // TO DO: Fix Google Sign In
+    
     let otterImage = UIImageView()
     let emailTextField = MadokaTextField()
     let passwordTextField = MadokaTextField()
@@ -60,6 +62,8 @@ class LoginViewController: BaseViewController {
     func setUpTFUI() {
         emailTextField.setTextField(string: "Email...")
         passwordTextField.setTextField(string: "Password...")
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
     }
     func setConstraints() {
         
@@ -86,7 +90,7 @@ class LoginViewController: BaseViewController {
         
         forgotPasswordButton.snp.makeConstraints { (make) in
             make.leftMargin.equalTo(self.passwordTextField.snp_leftMargin).inset(6)
-            make.topMargin.equalTo(self.passwordTextField.snp_bottomMargin).offset(25)
+            make.topMargin.equalTo(self.passwordTextField.snp_bottomMargin).offset(20)
             make.height.equalTo(18)
             make.width.equalToSuperview().multipliedBy(0.32)
         }
@@ -156,8 +160,16 @@ class LoginViewController: BaseViewController {
     
     @objc func forgotPasswordTapped() {
         print("forgot password tapped")
-//        let navigationController = UINavigationController(rootViewController: ForgotPasswordViewController())
-//        present(navigationController, animated: true, completion: nil)
+        let navigationController = UINavigationController(rootViewController: ForgotPasswordViewController())
+        present(navigationController, animated: true, completion: nil)
     }
 
+}
+
+extension LoginViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        self.view.endEditing(true)
+        textField.resignFirstResponder()
+        return true
+    }
 }
