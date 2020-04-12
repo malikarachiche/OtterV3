@@ -41,55 +41,42 @@ class BaseViewController: UIViewController {
         view.endEditing(true)
     }
     
-    // MARK: TODO: Finish this function
-    func getUserFromDatabase(email: String) {
-//        database.collection("users").whereField("email", isEqualTo: email).getDocuments { (snapshot, error) in
-//            if let error = error {
-//                print("Error getting documents: \(error.localizedDescription)")
-//            } else {
-//                for document in snapshot!.documents {
-//                    print("Fetched Document: \(document.documentID) => \(document.data())")
-//                }
-//            }
-//        }
+    func getUserFromDatabase(email: String) -> User {
+        var docData: [String:Any] = [:]
         
-//        database.collection("users").document(Auth.auth().currentUser!.uid).getDocument { (document, error) in
-//            let result = Result {
-//                try document.flatMap {
-//                    try $0.data(as: User.self)
-//                }
-//            }
-//            switch result {
-//            case .success(let user):
-//                if let user = user {
-//                    print("City: \(user)")
-//                } else {
-//                    print("Document does not exist")
-//                }
-//            case .failure(let error):
-//                print("Error decoding city: \(error)")
-//            }
-//        }
-        
-    
+        database.collection("users").whereField("email", isEqualTo: email).getDocuments { (snapshot, error) in
+            if let error = error {
+                print("Error getting documents: \(error.localizedDescription)")
+            } else {
+                for document in snapshot!.documents {
+                    print("Fetched Document: \(document.documentID) => \(document.data())")
+                    docData = document.data()
+                    print("Doc data: \(docData)")
+                }
+            }
+        }
+        return User(data: docData)
     }
     
     func addUserToDatabase(name: String, career: String) {
         let currentUser = Auth.auth().currentUser
         if currentUser != nil {
             let currentDate = getCurrentDate()
-            let user = User(id: currentUser!.uid, email: currentUser?.email ?? "", name: name, dateJoined: currentDate, career: career)
+            let initialData: [String: String] = ["id": currentUser?.uid ?? "13123", "email": currentUser?.email ?? "", "name": name, "dateJoined": currentDate, "career": career]
+            let user = User(data: initialData)
+            
+            print("About to add user to database")
+            print("ID: \(user.getID()), Data: \(user.getData())")
             
             database.collection("users").document(user.getID()).setData(user.getData()) { error in
                 if let error = error {
-                    print("Error creating a new user: \(error.localizedDescription)")
+                    print("Error creating a new user: \(error)")
                     return
                 } else {
                     print("User document successfully created")
                 }
             }
         }
-        signOut()
     }
     
     func getCurrentDate() -> String {

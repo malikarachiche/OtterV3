@@ -9,30 +9,31 @@
 import UIKit
 
 class User {
-    private var id: String
-    private var email: String
-    private var name: String
-    private var dateJoined: String
-    private var career: String
+    private var id: String?
+    private var email: String?
+    private var name: String?
+    private var dateJoined: String?
+    private var career: String?
     private var connections: [String:User]
     private var posts: [Post]
     
     private var data: [String:Any]
     
-    init(id: String, email: String, name: String, dateJoined: String, career: String) {
-        self.id = id
-        self.email = email
-        self.name = name
-        self.dateJoined = dateJoined
-        self.career = career
+    init(data: [String:Any]) {
+        self.id = data["id"] as? String
+        self.name = data["name"] as? String
+        self.email = data["email"] as? String
+        self.dateJoined = data["dateJoined"] as? String
+        self.career = data["career"] as? String
         self.posts = []
         self.connections = [:]
         
-        self.data = ["id": id, "email": email, "name": name, "dateJoined": dateJoined, "career": career, "posts": posts, "connections": connections]
+        self.data = ["id": self.id ?? "", "email": self.email ?? "", "name": self.name ?? "", "dateJoined": self.dateJoined ?? "", "career": self.career ?? "", "posts": self.posts, "connections": self.connections]
     }
     
+    
     func getID() -> String {
-        return self.id
+        return self.id ?? ""
     }
     
     func setID(ID: String) {
@@ -40,7 +41,7 @@ class User {
     }
     
     func getEmail() -> String {
-        return self.email
+        return self.email ?? ""
     }
     
     func setEmail(email: String) {
@@ -48,7 +49,7 @@ class User {
     }
     
     func getName() -> String {
-        return self.name
+        return self.name ?? ""
     }
     
     func setName(name: String) {
@@ -56,11 +57,11 @@ class User {
     }
     
     func getDateJoined() -> String {
-        return self.dateJoined
+        return self.dateJoined ?? ""
     }
     
     func getCareer() -> String {
-        return self.career
+        return self.career ?? ""
     }
     
     func setCareer(career: String) {

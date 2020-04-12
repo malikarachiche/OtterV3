@@ -13,11 +13,15 @@ import Firebase
 class HomeViewController: BaseViewController {
 
     let button = CustomLoginButton()
+    var user: User?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
-        getUserFromDatabase(email: Auth.auth().currentUser?.email ?? "")
+        user = getUserFromDatabase(email: Auth.auth().currentUser?.email ?? "")
+        print(" ")
+        print("User data on home screen")
+        print(user?.getData() ?? [:])
     }
     
     func setUpUI() {
