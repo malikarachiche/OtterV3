@@ -12,6 +12,11 @@
 		451D1B6F24411D7F00F56FC8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 451D1B6E24411D7F00F56FC8 /* Assets.xcassets */; };
 		451D1B7224411D7F00F56FC8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 451D1B7024411D7F00F56FC8 /* LaunchScreen.storyboard */; };
 		451D1B7D24411D7F00F56FC8 /* OtterV3Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 451D1B7C24411D7F00F56FC8 /* OtterV3Tests.swift */; };
+		45C6A69E2442D899009EFF10 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C6A69D2442D899009EFF10 /* MainTabBarViewController.swift */; };
+		45C6A6A22442DB57009EFF10 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C6A6A12442DB57009EFF10 /* NotificationViewController.swift */; };
+		45C6A6A52442DBA3009EFF10 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C6A6A42442DBA3009EFF10 /* ProfileViewController.swift */; };
+		45C6A6A72442DBAF009EFF10 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C6A6A62442DBAF009EFF10 /* SettingsViewController.swift */; };
+		45C6A6A92442E18E009EFF10 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45C6A6A82442E18E009EFF10 /* HomeViewController.swift */; };
 		45E3E7C0244129EF00BE95E8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 45E3E7BF244129EF00BE95E8 /* GoogleService-Info.plist */; };
 		45E3E7C1244129EF00BE95E8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 45E3E7BF244129EF00BE95E8 /* GoogleService-Info.plist */; };
 		45E3E7C52441304800BE95E8 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45E3E7C42441304800BE95E8 /* LoginViewController.swift */; };
@@ -58,6 +63,11 @@
 		451D1B7824411D7F00F56FC8 /* OtterV3Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OtterV3Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		451D1B7C24411D7F00F56FC8 /* OtterV3Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtterV3Tests.swift; sourceTree = "<group>"; };
 		451D1B7E24411D7F00F56FC8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		45C6A69D2442D899009EFF10 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
+		45C6A6A12442DB57009EFF10 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		45C6A6A42442DBA3009EFF10 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		45C6A6A62442DBAF009EFF10 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		45C6A6A82442E18E009EFF10 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		45E3E7BF244129EF00BE95E8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		45E3E7C42441304800BE95E8 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		45E3E7C8244138C000BE95E8 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
@@ -142,13 +152,26 @@
 			path = OtterV3Tests;
 			sourceTree = "<group>";
 		};
+		45C6A6A32442DB5E009EFF10 /* MainApp */ = {
+			isa = PBXGroup;
+			children = (
+				45C6A69D2442D899009EFF10 /* MainTabBarViewController.swift */,
+				45C6A6A82442E18E009EFF10 /* HomeViewController.swift */,
+				45C6A6A42442DBA3009EFF10 /* ProfileViewController.swift */,
+				45C6A6A12442DB57009EFF10 /* NotificationViewController.swift */,
+				45C6A6A62442DBAF009EFF10 /* SettingsViewController.swift */,
+			);
+			path = MainApp;
+			sourceTree = "<group>";
+		};
 		45E3E7C224412F3600BE95E8 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				45E3E7CE24413E5700BE95E8 /* BaseViewController.swift */,
+				45C6A6A32442DB5E009EFF10 /* MainApp */,
 				45E3E7C42441304800BE95E8 /* LoginViewController.swift */,
 				45E3E7E02442284900BE95E8 /* ForgotPasswordViewController.swift */,
 				45E3E7CB244139C000BE95E8 /* OnboardingViewController.swift */,
-				45E3E7CE24413E5700BE95E8 /* BaseViewController.swift */,
 				45E3E7DA24415FE400BE95E8 /* SignUpViewController.swift */,
 			);
 			path = ViewControllers;
@@ -383,11 +406,16 @@
 				45E3E7C52441304800BE95E8 /* LoginViewController.swift in Sources */,
 				45E3E7D82441402800BE95E8 /* Extensions.swift in Sources */,
 				45E3E7C9244138C000BE95E8 /* Colors.swift in Sources */,
+				45C6A6A92442E18E009EFF10 /* HomeViewController.swift in Sources */,
 				45E3E7CC244139C000BE95E8 /* OnboardingViewController.swift in Sources */,
+				45C6A6A22442DB57009EFF10 /* NotificationViewController.swift in Sources */,
+				45C6A6A52442DBA3009EFF10 /* ProfileViewController.swift in Sources */,
 				45E3E7DB24415FE400BE95E8 /* SignUpViewController.swift in Sources */,
 				45E3E7D224413F4000BE95E8 /* CustomLoginButton.swift in Sources */,
 				451D1B6624411D7C00F56FC8 /* AppDelegate.swift in Sources */,
+				45C6A69E2442D899009EFF10 /* MainTabBarViewController.swift in Sources */,
 				45E3E7D524413FB000BE95E8 /* CustomLoginTransitionButton.swift in Sources */,
+				45C6A6A72442DBAF009EFF10 /* SettingsViewController.swift in Sources */,
 				45E3E7E12442284900BE95E8 /* ForgotPasswordViewController.swift in Sources */,
 				451D1B6824411D7C00F56FC8 /* SceneDelegate.swift in Sources */,
 				45E3E7CF24413E5700BE95E8 /* BaseViewController.swift in Sources */,

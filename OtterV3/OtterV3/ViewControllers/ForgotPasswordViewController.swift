@@ -12,7 +12,9 @@ import TextFieldEffects
 import Lottie
 
 class ForgotPasswordViewController: BaseViewController {
-
+    
+    // MARK: TODO: Refactor backToLogin and sendEmailButton to be the same button
+    
     let label = UILabel()
     let emailTextField = MadokaTextField()
     let backButton = UIButton()
@@ -37,7 +39,6 @@ class ForgotPasswordViewController: BaseViewController {
         setConstraints()
         setUpLabel(label: label, text: "It's okay! We'll send a password recovery link to your email")
         
-        navigationController?.navigationBar.isHidden = true
         view.setGradientBackground(colorOne: Colors.veryDarkPurple, colorTwo: Colors.darkPurple, colorThree: Colors.darkTeal)
         
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
@@ -110,11 +111,11 @@ class ForgotPasswordViewController: BaseViewController {
     
     @objc func backButtonTapped() {
         print("Back button tapped")
-        navigationController?.dismiss(animated: true, completion: nil)
+        navigationController?.popViewController(animated: true)
     }
     
     @objc func backToLoginTapped() {
-        navigationController?.dismiss(animated: true, completion: nil)
+        navigationController?.popViewController(animated: true)
     }
     
     @objc func sendEmailTapped() {

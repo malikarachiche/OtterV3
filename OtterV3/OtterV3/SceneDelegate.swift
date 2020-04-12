@@ -23,8 +23,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.windowScene = windowScene
         window?.makeKeyAndVisible()
         
-        var initVC: UINavigationController {
-            return UINavigationController(rootViewController: LoginViewController())
+        var initVC: UIViewController {
+            if Auth.auth().currentUser != nil {
+                return MainTabBarController()
+            } else {
+                return OnboardingViewController()
+            }
+            
         }
         window?.rootViewController = initVC
 

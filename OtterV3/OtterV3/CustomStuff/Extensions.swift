@@ -38,7 +38,7 @@ extension HoshiTextField {
 extension MadokaTextField {
     func setTextField(string: String) {
         placeholder = string
-        placeholderFontScale = 0.75
+        placeholderFontScale = 0.9
         placeholderColor = UIColor.white
         borderColor = UIColor.white
         textColor = UIColor.white

@@ -99,7 +99,8 @@ class OnboardingViewController: UIViewController, PaperOnboardingDelegate, Paper
     
     @objc func getStartedTapped() {
         print("Getting started")
-        self.navigationController?.pushViewController(LoginViewController(), animated: false)
-        //present(LoginViewController(), animated: true, completion: nil)
+        let vc = UINavigationController(rootViewController: LoginViewController())
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
     }
 }

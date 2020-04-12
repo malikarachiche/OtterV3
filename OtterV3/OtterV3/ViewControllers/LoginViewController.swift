@@ -19,19 +19,22 @@ class LoginViewController: BaseViewController {
     let otterImage = UIImageView()
     let emailTextField = MadokaTextField()
     let passwordTextField = MadokaTextField()
-    
     let loginButton = CustomLoginButton()
     let googleButton = GIDSignInButton()
     let noAccountButton = CustomLoginTransitionButton()
     let forgotPasswordButton = CustomLoginTransitionButton()
-    
-    let database = Firestore.firestore()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
         setUpTFUI()
         setUpGestureRecognizer()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        emailTextField.text = ""
+        passwordTextField.text = ""
     }
     
     func setUpUI() {
@@ -62,6 +65,7 @@ class LoginViewController: BaseViewController {
     func setUpTFUI() {
         emailTextField.setTextField(string: "Email...")
         passwordTextField.setTextField(string: "Password...")
+        passwordTextField.isSecureTextEntry = true
         emailTextField.delegate = self
         passwordTextField.delegate = self
     }
@@ -83,14 +87,14 @@ class LoginViewController: BaseViewController {
         
         passwordTextField.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
-            make.topMargin.equalTo(self.emailTextField.snp_bottomMargin).offset(20)
+            make.topMargin.equalTo(self.emailTextField.snp_bottomMargin).offset(25)
             make.height.equalTo(55)
             make.width.equalToSuperview().multipliedBy(0.61)
         }
         
         forgotPasswordButton.snp.makeConstraints { (make) in
             make.leftMargin.equalTo(self.passwordTextField.snp_leftMargin).inset(6)
-            make.topMargin.equalTo(self.passwordTextField.snp_bottomMargin).offset(20)
+            make.topMargin.equalTo(self.passwordTextField.snp_bottomMargin).offset(23)
             make.height.equalTo(18)
             make.width.equalToSuperview().multipliedBy(0.32)
         }
@@ -111,7 +115,7 @@ class LoginViewController: BaseViewController {
         
         noAccountButton.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
-            make.topMargin.equalTo(self.googleButton).offset(100)
+            make.topMargin.equalTo(self.googleButton).offset(90)
             make.height.equalTo(30)
             make.width.equalToSuperview().multipliedBy(0.55)
         }
@@ -119,20 +123,35 @@ class LoginViewController: BaseViewController {
     }
     
     @objc func loginButtonTapped() {
-        print("Hello World!")
+        print("Login tapped")
+        
 
         Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) { (user, error) in
+            if let error = error {
+                self.loginButton.shakeButton()
+                if let errCode = AuthErrorCode(rawValue: error._code) {
+                    switch errCode {
+                    case .invalidEmail:
+                        self.createAlert(title: "There was a problem", message: "Invalid email, please try again")
+                        return
+                    case .wrongPassword:
+                        self.createAlert(title: "There was a problem", message: "Incorrect password")
+                        return
+                    case .userDisabled:
+                        self.createAlert(title: "There was a problem", message: "This account was disabled")
+                        return
+                    default:
+                        self.createAlert(title: "There was a problem", message: "Unknown error, please try again")
+                        return
+                    }
+                }
+            }
+            
             if user != nil {
                 if Auth.auth().currentUser!.isEmailVerified {
-                    // Sets user email to the email provided once it is verified
-                    Auth.auth().currentUser?.updateEmail(to: self.emailTextField.text!, completion: nil)
-                    
-                    let user = Auth.auth().currentUser
-                    if let user = user {
-                        print(self.database.collection("users").whereField("email", isEqualTo: user.email ?? "nil"))
-                    }
-                    
-                    //self.navigationController?.pushViewController(MainTabBarController(), animated: true)
+                    let vc = MainTabBarController()
+                    vc.modalPresentationStyle = .fullScreen
+                    self.present(vc, animated: true, completion: nil)
                     
                 }
                 else {
@@ -140,14 +159,6 @@ class LoginViewController: BaseViewController {
                     self.loginButton.shakeButton()
                     self.createAlert(title: "There was a problem", message: "Please verify your email")
                 }
-            } else {
-                // Empty text fields
-                if (self.emailTextField.text == nil) || self.passwordTextField.text == nil {
-                    self.createAlert(title: "There was a problem", message: "Please complete the text fields")
-                }
-                // Incorrect email or password
-                self.loginButton.shakeButton()
-                self.createAlert(title: "There was a problem", message: "Incorrect Email or Password")
             }
         }
     }
@@ -159,10 +170,8 @@ class LoginViewController: BaseViewController {
     
     @objc func forgotPasswordTapped() {
         print("forgot password tapped")
-        let navigationController = UINavigationController(rootViewController: ForgotPasswordViewController())
-        present(navigationController, animated: true, completion: nil)
+        self.navigationController?.pushViewController(ForgotPasswordViewController(), animated: true)
     }
-
 }
 
 extension LoginViewController: UITextFieldDelegate {

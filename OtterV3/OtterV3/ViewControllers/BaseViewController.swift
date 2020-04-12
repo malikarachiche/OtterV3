@@ -12,6 +12,8 @@ import GoogleSignIn
 
 class BaseViewController: UIViewController {
 
+    let database = Firestore.firestore()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,6 +41,36 @@ class BaseViewController: UIViewController {
         view.endEditing(true)
     }
     
+    func getUserFromDatabase(email: String) {
+        database.collection("users").whereField("email", isEqualTo: email).getDocuments { (snapshot, error) in
+            if let error = error {
+                print("Error getting documents: \(error.localizedDescription)")
+            } else {
+                for document in snapshot!.documents {
+                    print("\(document.documentID) => \(document.data())")
+                }
+            }
+        }
+    }
+    
+    func addUserToDatabase(name: String, career: String) {
+        let currentUser = Auth.auth().currentUser
+        if currentUser != nil {
+            let currentDate = getCurrentDate()
+            let user = User(id: currentUser!.uid, email: currentUser?.email ?? "", name: name, dateJoined: currentDate, career: career)
+            
+            database.collection("users").document(user.getID()).setData(user.getData()) { error in
+                if let error = error {
+                    print("Error creating a new user: \(error.localizedDescription)")
+                    return
+                } else {
+                    print("User document successfully created")
+                }
+            }
+        }
+        signOut()
+    }
+    
     func getCurrentDate() -> String {
         let currentDateTime = Date()
         let formatter = DateFormatter()
@@ -50,12 +82,25 @@ class BaseViewController: UIViewController {
         return dateTimeString
     }
     
-    func signOut(redirect: UIViewController) {
+    func signOutAndRedirect() {
         let firebaseAuth = Auth.auth()
         do {
             try firebaseAuth.signOut()
             GIDSignIn.sharedInstance()?.disconnect()
-            present(redirect, animated: true, completion: nil)
+            let vc = UINavigationController(rootViewController: LoginViewController())
+            vc.modalPresentationStyle = .fullScreen
+            present(vc, animated: false, completion: nil)
+            print("Logging out")
+        } catch let signOutError as NSError {
+            print("Sign out error \(signOutError)" )
+        }
+    }
+    
+    func signOut() {
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+            GIDSignIn.sharedInstance()?.disconnect()
             print("Logging out")
         } catch let signOutError as NSError {
             print("Sign out error \(signOutError)" )

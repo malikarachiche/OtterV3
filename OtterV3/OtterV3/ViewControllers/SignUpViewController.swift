@@ -25,12 +25,21 @@ class SignUpViewController: BaseViewController {
     let signUpButton = CustomLoginButton()
     let alreadyHaveAccountButton = CustomLoginTransitionButton()
     
-    let database = Firestore.firestore()
+    //let database = Firestore.firestore()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpGestureRecognizer()
         setUpUI()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        emailTextField.text = ""
+        passwordTextField.text = ""
+        confirmPasswordTextField.text = ""
+        nameTextField.text = ""
+        careerTextField.text = ""
     }
     
     func setUpUI() {
@@ -212,23 +221,6 @@ class SignUpViewController: BaseViewController {
         }
     }
     
-    func addUserToDatabase() {
-        let currentUser = Auth.auth().currentUser
-        if currentUser != nil {
-            let currentDate = getCurrentDate()
-            let user = User(id: currentUser!.uid, email: currentUser?.email ?? "", name: nameTextField.text ?? "", dateJoined: currentDate, career: careerTextField.text ?? "")
-            
-            database.collection("users").document(user.getID()).setData(user.getData()) { error in
-                if let error = error {
-                    print("Error creating a new user: \(error.localizedDescription)")
-                    return
-                } else {
-                    print("User document successfully created")
-                }
-            }
-        }
-    }
-    
     @objc func signUpTapped() {
         let buttonText = self.signUpButton.titleLabel?.text
         if buttonText == "Next" {
@@ -243,7 +235,7 @@ class SignUpViewController: BaseViewController {
             Auth.auth().currentUser?.sendEmailVerification(completion: { (error) in
                 self.animate()
             })
-            self.addUserToDatabase()
+            addUserToDatabase(name: nameTextField.text ?? "", career: careerTextField.text ?? "")
         } else {
             print("Back to login tapped")
             self.navigationController?.popViewController(animated: true)
