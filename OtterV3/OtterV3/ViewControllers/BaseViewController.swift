@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Firebase
+import GoogleSignIn
 
 class BaseViewController: UIViewController {
 
@@ -35,6 +37,38 @@ class BaseViewController: UIViewController {
     
     @objc func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    func getCurrentDate() -> String {
+        let currentDateTime = Date()
+        let formatter = DateFormatter()
+        formatter.timeStyle = .none
+        formatter.dateStyle = .medium
+        
+        let dateTimeString = formatter.string(from: currentDateTime)
+        
+        return dateTimeString
+    }
+    
+    func signOut(redirect: UIViewController) {
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+            GIDSignIn.sharedInstance()?.disconnect()
+            present(redirect, animated: true, completion: nil)
+            print("Logging out")
+        } catch let signOutError as NSError {
+            print("Sign out error \(signOutError)" )
+        }
+    }
+    
+    func setUpLabel(label: UILabel, text: String) {
+        label.text = text
+        label.textColor = UIColor.white
+        label.backgroundColor = .clear
+        label.textAlignment = .center
+        label.numberOfLines = 5
+        label.font = UIFont(name: "PingFangTC-Light", size: 20)
     }
 
 }

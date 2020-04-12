@@ -35,14 +35,10 @@ class ForgotPasswordViewController: BaseViewController {
         view.addSubview(sendEmailButton)
         
         setConstraints()
+        setUpLabel(label: label, text: "It's okay! We'll send a password recovery link to your email")
         
         navigationController?.navigationBar.isHidden = true
         view.setGradientBackground(colorOne: Colors.veryDarkPurple, colorTwo: Colors.darkPurple, colorThree: Colors.darkTeal)
-        label.text = "It's okay! We'll send a password recovery link to your email"
-        label.textColor = UIColor.white
-        label.textAlignment = .center
-        label.numberOfLines = 9
-        label.font = UIFont(name: "PingFangTC-Light", size: 20)
         
         backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
         backButton.setTitle("<-", for: .normal)

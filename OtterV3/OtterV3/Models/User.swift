@@ -12,19 +12,19 @@ class User {
     private var id: String
     private var email: String
     private var name: String
-    private var photoURL: String
+    private var dateJoined: String
     private var career: String
     private var data: [String:Any]
     //var posts: [Post]
     
-    init(id: String, email: String, name: String, photoURL: String, career: String) {
+    init(id: String, email: String, name: String, dateJoined: String, career: String) {
         self.id = id
         self.email = email
         self.name = name
-        self.photoURL = photoURL
+        self.dateJoined = dateJoined
         self.career = career
         
-        self.data = ["id": id, "email": email, "name": name, "photoURL": photoURL, "career": career]
+        self.data = ["id": id, "email": email, "name": name, "dateJoined": dateJoined, "career": career]
     }
     
     func getID() -> String {
@@ -51,12 +51,8 @@ class User {
         self.name = name
     }
     
-    func getPhotoURL() -> String {
-        return self.photoURL
-    }
-    
-    func setPhotoURL(photoURL: String) {
-        self.photoURL = photoURL
+    func getDateJoined() -> String {
+        return self.dateJoined
     }
     
     func getCareer() -> String {
@@ -67,5 +63,8 @@ class User {
         self.career = career
     }
     
+    func getData() -> [String:Any] {
+        return self.data
+    }
     
 }
