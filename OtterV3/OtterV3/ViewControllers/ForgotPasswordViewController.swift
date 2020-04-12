@@ -18,7 +18,6 @@ class ForgotPasswordViewController: BaseViewController {
     let label = UILabel()
     let emailTextField = MadokaTextField()
     let backButton = UIButton()
-    let backToLogin = CustomLoginButton()
     let sendEmailButton = CustomLoginButton()
     let animationView = AnimationView()
     
@@ -33,7 +32,6 @@ class ForgotPasswordViewController: BaseViewController {
         view.addSubview(label)
         view.addSubview(emailTextField)
         view.addSubview(backButton)
-        view.addSubview(backToLogin)
         view.addSubview(sendEmailButton)
         
         setConstraints()
@@ -45,11 +43,6 @@ class ForgotPasswordViewController: BaseViewController {
         backButton.setTitle("<-", for: .normal)
         sendEmailButton.addTarget(self, action: #selector(sendEmailTapped), for: .touchUpInside)
         sendEmailButton.setTitle("Send Email", for: .normal)
-        backToLogin.alpha = 0
-        backToLogin.isEnabled = false
-        backToLogin.setTitle("Back to Login", for: .normal)
-        backToLogin.addTarget(self, action: #selector(backToLoginTapped), for: .touchUpInside)
-        
     }
     
     func setConstraints() {
@@ -79,13 +72,6 @@ class ForgotPasswordViewController: BaseViewController {
             make.topMargin.equalTo(self.emailTextField.snp_bottomMargin).offset(50)
             make.width.equalToSuperview().multipliedBy(0.75)
         }
-        
-        backToLogin.snp.makeConstraints { (make) in
-            make.centerX.equalToSuperview()
-            make.height.equalTo(40)
-            make.topMargin.equalTo(self.emailTextField.snp_bottomMargin).offset(50)
-            make.width.equalToSuperview().multipliedBy(0.75)
-        }
     }
     
     func setUpTFUI() {
@@ -93,19 +79,13 @@ class ForgotPasswordViewController: BaseViewController {
         emailTextField.delegate = self
     }
     
-    func passwordReset() {
+    func animate() {
         DispatchQueue.main.async {
             UIView.animate(withDuration: 0.2) {
-                self.sendEmailButton.alpha = 0
                 self.emailTextField.alpha = 0
                 self.label.text = "An email has been sent, please click the link provided in the email to reset your password"
-                
             }
-            self.sendEmailButton.isEnabled = false
-            self.backToLogin.isEnabled = true
-            UIView.animate(withDuration: 0.2) {
-                self.backToLogin.alpha = 1
-            }
+            self.sendEmailButton.setTitle(message: "Back To Login")
         }
     }
     
@@ -114,27 +94,35 @@ class ForgotPasswordViewController: BaseViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    @objc func backToLoginTapped() {
-        navigationController?.popViewController(animated: true)
-    }
-    
     @objc func sendEmailTapped() {
         print("Send email tapped")
-        
-        if emailTextField.text != nil {
+        if sendEmailButton.titleLabel?.text == "Send Email" {
             Auth.auth().sendPasswordReset(withEmail: emailTextField.text!) { (error) in
-                if error != nil {
-                    print(error!.localizedDescription)
-                    self.createAlert(title: "Invalid Email", message: "Please try again")
-                }
-                else {
+                // MARK: TODO: Fix up error checking
+                if let error = error {
+                    print(error.localizedDescription)
+                    self.sendEmailButton.shakeButton()
+                    if let errCode = AuthErrorCode(rawValue: error._code) {
+                        switch errCode {
+                        case .invalidEmail:
+                            self.createAlert(title: "THere was a problem", message: "Email is invalid")
+                        case .missingEmail:
+                            self.createAlert(title: "There was a problem", message: error.localizedDescription)
+                        case .userNotFound:
+                            self.createAlert(title: "There was a problem", message: "User not found")
+                        default:
+                            self.createAlert(title: "There was a problem", message: "Please try again")
+                        }
+                    }
+                } else {
                     print("Password Recovery Email Sent!")
-                    self.passwordReset()
+                    self.animate()
                 }
             }
         } else {
-            self.createAlert(title: "Invalid Email", message: "Please enter an email")
+            navigationController?.popViewController(animated: true)
         }
+        
     }
 }
 

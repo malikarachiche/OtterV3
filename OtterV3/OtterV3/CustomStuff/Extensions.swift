@@ -44,5 +44,4 @@ extension MadokaTextField {
         textColor = UIColor.white
         clearButtonMode = .whileEditing
     }
-    
 }

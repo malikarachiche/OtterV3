@@ -41,16 +41,37 @@ class BaseViewController: UIViewController {
         view.endEditing(true)
     }
     
+    // MARK: TODO: Finish this function
     func getUserFromDatabase(email: String) {
-        database.collection("users").whereField("email", isEqualTo: email).getDocuments { (snapshot, error) in
-            if let error = error {
-                print("Error getting documents: \(error.localizedDescription)")
-            } else {
-                for document in snapshot!.documents {
-                    print("\(document.documentID) => \(document.data())")
-                }
-            }
-        }
+//        database.collection("users").whereField("email", isEqualTo: email).getDocuments { (snapshot, error) in
+//            if let error = error {
+//                print("Error getting documents: \(error.localizedDescription)")
+//            } else {
+//                for document in snapshot!.documents {
+//                    print("Fetched Document: \(document.documentID) => \(document.data())")
+//                }
+//            }
+//        }
+        
+//        database.collection("users").document(Auth.auth().currentUser!.uid).getDocument { (document, error) in
+//            let result = Result {
+//                try document.flatMap {
+//                    try $0.data(as: User.self)
+//                }
+//            }
+//            switch result {
+//            case .success(let user):
+//                if let user = user {
+//                    print("City: \(user)")
+//                } else {
+//                    print("Document does not exist")
+//                }
+//            case .failure(let error):
+//                print("Error decoding city: \(error)")
+//            }
+//        }
+        
+    
     }
     
     func addUserToDatabase(name: String, career: String) {

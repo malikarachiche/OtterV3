@@ -12,6 +12,8 @@ import paper_onboarding
 
 class OnboardingViewController: UIViewController, PaperOnboardingDelegate, PaperOnboardingDataSource {
     
+    // MARK: TODO: Fix up constraints
+    
     let onboardingView = PaperOnboarding()
     let getStartedButton = UIButton()
     

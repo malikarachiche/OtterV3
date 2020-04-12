@@ -14,8 +14,10 @@ class User {
     private var name: String
     private var dateJoined: String
     private var career: String
+    private var connections: [String:User]
+    private var posts: [Post]
+    
     private var data: [String:Any]
-    //var posts: [Post]
     
     init(id: String, email: String, name: String, dateJoined: String, career: String) {
         self.id = id
@@ -23,8 +25,10 @@ class User {
         self.name = name
         self.dateJoined = dateJoined
         self.career = career
+        self.posts = []
+        self.connections = [:]
         
-        self.data = ["id": id, "email": email, "name": name, "dateJoined": dateJoined, "career": career]
+        self.data = ["id": id, "email": email, "name": name, "dateJoined": dateJoined, "career": career, "posts": posts, "connections": connections]
     }
     
     func getID() -> String {
@@ -65,6 +69,39 @@ class User {
     
     func getData() -> [String:Any] {
         return self.data
+    }
+    
+    func getPosts() -> [Post] {
+        return self.posts
+    }
+    
+    func addPost(post: Post) {
+        self.posts.append(post)
+    }
+    
+    func getConnections() -> [String:User] {
+        return self.connections
+    }
+    
+    func addConnection(user: User) {
+        let name = user.getName()
+        if self.connections[name] != nil {
+            print("User already in dictionary")
+            return
+        } else {
+            print("Added \(name) to connections!")
+            self.connections.updateValue(user, forKey: name)
+        }
+    }
+    
+    func removeConnection(user: User) {
+        let name = user.getName()
+        if self.connections[name] != nil {
+            self.connections.removeValue(forKey: name)
+            print("Removed \(name) from connections!")
+        } else {
+            print("Cannot find \(name)")
+        }
     }
     
 }

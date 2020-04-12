@@ -13,8 +13,6 @@ import Firebase
 
 class SignUpViewController: BaseViewController {
 
-    // TODO: Figure out what to do with careerTextField
-    
     let finishedLabel = UILabel()
     let otterImage = UIImageView()
     let emailTextField = MadokaTextField()
@@ -24,8 +22,6 @@ class SignUpViewController: BaseViewController {
     let careerTextField = MadokaTextField()
     let signUpButton = CustomLoginButton()
     let alreadyHaveAccountButton = CustomLoginTransitionButton()
-    
-    //let database = Firestore.firestore()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -173,7 +169,6 @@ class SignUpViewController: BaseViewController {
         
             if user != nil {
                 print("User created")
-                // Sends an email verification
                 self.animate()
             } else {
                 // There was an error
@@ -245,7 +240,7 @@ class SignUpViewController: BaseViewController {
     
     @objc func alreadyHaveAccountTapped() {
         print("Button Tapped")
-        self.navigationController?.popViewController(animated: false)
+        self.navigationController?.popViewController(animated: true)
     }
 }
 

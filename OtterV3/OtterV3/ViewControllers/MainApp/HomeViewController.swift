@@ -17,13 +17,13 @@ class HomeViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpUI()
-        // Do any additional setup after loading the view.
-        view.backgroundColor = .white
+        getUserFromDatabase(email: Auth.auth().currentUser?.email ?? "")
     }
     
     func setUpUI() {
         view.addSubview(button)
         
+        view.backgroundColor = .white
         setConstraints()
         
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
@@ -42,16 +42,4 @@ class HomeViewController: BaseViewController {
         print("Button tapped")
         signOutAndRedirect()
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

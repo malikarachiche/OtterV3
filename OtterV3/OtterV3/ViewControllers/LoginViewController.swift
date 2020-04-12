@@ -14,7 +14,7 @@ import TextFieldEffects
 
 class LoginViewController: BaseViewController {
 
-    // TO DO: Fix Google Sign In
+    // MARK: TODO: Fix Google Sign In
     
     let otterImage = UIImageView()
     let emailTextField = MadokaTextField()
@@ -124,7 +124,6 @@ class LoginViewController: BaseViewController {
     
     @objc func loginButtonTapped() {
         print("Login tapped")
-        
 
         Auth.auth().signIn(withEmail: emailTextField.text!, password: passwordTextField.text!) { (user, error) in
             if let error = error {
@@ -146,7 +145,6 @@ class LoginViewController: BaseViewController {
                     }
                 }
             }
-            
             if user != nil {
                 if Auth.auth().currentUser!.isEmailVerified {
                     let vc = MainTabBarController()
