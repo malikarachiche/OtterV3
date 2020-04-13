@@ -8,11 +8,13 @@
 
 import UIKit
 import Firebase
+import FirebaseFirestoreSwift
 import GoogleSignIn
 
 class BaseViewController: UIViewController {
 
     let database = Firestore.firestore()
+    var currentUser: User?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,22 +43,32 @@ class BaseViewController: UIViewController {
         view.endEditing(true)
     }
     
-    func getUserFromDatabase(email: String) -> User {
-        var docData: [String:Any] = [:]
-        
-        database.collection("users").whereField("email", isEqualTo: email).getDocuments { (snapshot, error) in
-            if let error = error {
-                print("Error getting documents: \(error.localizedDescription)")
-            } else {
-                for document in snapshot!.documents {
-                    print("Fetched Document: \(document.documentID) => \(document.data())")
-                    docData = document.data()
-                    print("Doc data: \(docData)")
+    func getUserFromDatabase() {
+        self.database.collection("users").document(Auth.auth().currentUser?.uid ?? "").getDocument { (document, error) in
+            let result = Result {
+                try document.flatMap {
+                    try $0.data(as: User.self)
                 }
             }
+            switch result {
+            case .success(let user):
+                if let user = user {
+                    print("User: \(user)")
+                    self.currentUser = user
+                    print("User name: \(self.currentUser!.getName())")
+                    print("User email: \(self.currentUser!.getEmail())")
+                    print("User career: \(self.currentUser!.getCareer())")
+                    print("User email: \(self.currentUser!.getDateJoined())")
+                    print("User connections: \(self.currentUser!.getConnections())")
+                } else {
+                    print("Document does not exist")
+                }
+            case .failure(let error):
+                print("Error decoding user: \(error)")
+            }
         }
-        return User(data: docData)
     }
+        
     
     func addUserToDatabase(name: String, career: String) {
         let currentUser = Auth.auth().currentUser
@@ -65,17 +77,12 @@ class BaseViewController: UIViewController {
             let initialData: [String: String] = ["id": currentUser?.uid ?? "13123", "email": currentUser?.email ?? "", "name": name, "dateJoined": currentDate, "career": career]
             let user = User(data: initialData)
             
-            print("About to add user to database")
-            print("ID: \(user.getID()), Data: \(user.getData())")
-            
-            database.collection("users").document(user.getID()).setData(user.getData()) { error in
-                if let error = error {
-                    print("Error creating a new user: \(error)")
-                    return
-                } else {
-                    print("User document successfully created")
-                }
+            do {
+                try database.collection("users").document(user.getID()).setData(from: user)
+            } catch let error {
+                print("Error writing: \(error)")
             }
+            print("User document successfully created")
         }
     }
     

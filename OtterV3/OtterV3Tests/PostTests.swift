@@ -22,8 +22,8 @@ class PostTests: XCTestCase {
     func testGetters() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        
-        let user = User(id: "123", email: "mlkarachiche@gmail.com", name: "Malik Arachiche", dateJoined: "April 11, 2020", career: "SWE")
+        let data = ["id": "123", "email": "mlkarachiche@gmail.com", "name": "Malik Arachiche", "dateJoined": "April 12, 2020", "career": "Software Engineer"]
+        let user = User(data: data)
         let content = "This is my first Otter post, I'm so excited"
         let post = Post(title: "First post!", category: "Software", author: user, content: content, dateCreated: "April 12, 2020")
         
@@ -37,7 +37,8 @@ class PostTests: XCTestCase {
     }
     
     func testLikesAndComments() throws {
-        let user = User(id: "123", email: "mlkarachiche@gmail.com", name: "Malik Arachiche", dateJoined: "April 11, 2020", career: "SWE")
+        let data = ["id": "123", "email": "mlkarachiche@gmail.com", "name": "Malik Arachiche", "dateJoined": "April 12, 2020", "career": "Software Engineer"]
+        let user = User(data: data)
         let content = "This is my first Otter post, I'm so excited"
         let post = Post(title: "First post!", category: "Software", author: user, content: content, dateCreated: "April 12, 2020")
         let comment = "Nice job!"

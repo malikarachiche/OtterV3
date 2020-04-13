@@ -8,32 +8,49 @@
 
 import UIKit
 
-class User {
-    private var id: String?
-    private var email: String?
-    private var name: String?
-    private var dateJoined: String?
-    private var career: String?
+class User: Codable {
+    private var id: String
+    private var email: String
+    private var name: String
+    private var dateJoined: String
+    private var career: String
     private var connections: [String:User]
     private var posts: [Post]
     
-    private var data: [String:Any]
-    
-    init(data: [String:Any]) {
-        self.id = data["id"] as? String
-        self.name = data["name"] as? String
-        self.email = data["email"] as? String
-        self.dateJoined = data["dateJoined"] as? String
-        self.career = data["career"] as? String
-        self.posts = []
-        self.connections = [:]
-        
-        self.data = ["id": self.id ?? "", "email": self.email ?? "", "name": self.name ?? "", "dateJoined": self.dateJoined ?? "", "career": self.career ?? "", "posts": self.posts, "connections": self.connections]
+    private enum CodingKeys: String, CodingKey {
+        case id
+        case email
+        case name
+        case dateJoined
+        case career
+        case connections
+        case posts
     }
     
+    required init(from decoder:Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        id = try values.decode(String.self, forKey: .id)
+        email = try values.decode(String.self, forKey: .email)
+        name = try values.decode(String.self, forKey: .name)
+        dateJoined = try values.decode(String.self, forKey: .dateJoined)
+        career = try values.decode(String.self, forKey: .career)
+        connections = try values.decode([String:User].self, forKey: .connections)
+        posts = try values.decode([Post].self, forKey: .posts)
+        
+    }
+    
+    init(data: [String:Any]) {
+        self.id = data["id"] as! String
+        self.name = data["name"] as! String
+        self.email = data["email"] as! String
+        self.dateJoined = data["dateJoined"] as! String
+        self.career = data["career"] as! String
+        self.posts = []
+        self.connections = [:]
+    }
     
     func getID() -> String {
-        return self.id ?? ""
+        return self.id
     }
     
     func setID(ID: String) {
@@ -41,7 +58,7 @@ class User {
     }
     
     func getEmail() -> String {
-        return self.email ?? ""
+        return self.email
     }
     
     func setEmail(email: String) {
@@ -49,7 +66,7 @@ class User {
     }
     
     func getName() -> String {
-        return self.name ?? ""
+        return self.name
     }
     
     func setName(name: String) {
@@ -57,33 +74,29 @@ class User {
     }
     
     func getDateJoined() -> String {
-        return self.dateJoined ?? ""
+        return self.dateJoined
     }
     
     func getCareer() -> String {
-        return self.career ?? ""
+        return self.career
     }
     
     func setCareer(career: String) {
         self.career = career
     }
-    
-    func getData() -> [String:Any] {
-        return self.data
-    }
-    
+
     func getPosts() -> [Post] {
         return self.posts
     }
-    
+
     func addPost(post: Post) {
         self.posts.append(post)
     }
-    
+
     func getConnections() -> [String:User] {
         return self.connections
     }
-    
+
     func addConnection(user: User) {
         let name = user.getName()
         if self.connections[name] != nil {
@@ -94,7 +107,7 @@ class User {
             self.connections.updateValue(user, forKey: name)
         }
     }
-    
+
     func removeConnection(user: User) {
         let name = user.getName()
         if self.connections[name] != nil {
@@ -104,5 +117,5 @@ class User {
             print("Cannot find \(name)")
         }
     }
-    
+
 }

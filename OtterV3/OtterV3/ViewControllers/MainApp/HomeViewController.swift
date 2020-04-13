@@ -13,37 +13,45 @@ import Firebase
 class HomeViewController: BaseViewController {
 
     let button = CustomLoginButton()
-    var user: User?
+    let label = UILabel()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        setUpUI()
-        user = getUserFromDatabase(email: Auth.auth().currentUser?.email ?? "")
-        print(" ")
-        print("User data on home screen")
-        print(user?.getData() ?? [:])
-    }
-    
-    func setUpUI() {
-        view.addSubview(button)
-        
-        view.backgroundColor = .white
-        setConstraints()
-        
-        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
-        button.setTitle(message: "Log out")
-    }
-    
-    func setConstraints() {
-        button.snp.makeConstraints { (make) in
-            make.centerX.centerY.equalToSuperview()
-            make.width.equalToSuperview().multipliedBy(0.5)
-            make.height.equalTo(50)
+    override var currentUser: User? {
+        didSet {
+            label.text = "Welcome \(currentUser?.getName() ?? "nil")"
         }
     }
     
-    @objc func buttonTapped() {
-        print("Button tapped")
-        signOutAndRedirect()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.getUserFromDatabase()
+        setUpUI()
+        print("User info")
+        print("Name: \(currentUser?.getName()), Email: \(currentUser?.getEmail()), Career: \(currentUser?.getCareer()), Date Joined: \(currentUser?.getDateJoined())")
+        if let email = Auth.auth().currentUser?.email {
+            print("Email in home screen: \(email)")
+        }
+        sleep(3)
+        label.text = "Welcome \(currentUser?.getName() ?? "nil")"
+        
+    }
+    
+    func setUpUI() {
+        view.addSubview(label)
+        
+        view.backgroundColor = .white
+        setUpLabel(label: label, text: "Welcome \(currentUser?.getName() ?? "nil")")
+        label.textColor = .black
+        
+        setConstraints()
+    }
+    
+    func setConstraints() {
+        
+        label.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.height.equalTo(40)
+            make.width.equalToSuperview().multipliedBy(0.9)
+            make.centerY.equalToSuperview().offset(-150)
+        }
     }
 }

@@ -10,21 +10,39 @@ import UIKit
 
 class SettingsViewController: BaseViewController {
 
+    let button = CustomLoginButton()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        setUpUI()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func setUpUI() {
+        
+        view.addSubview(button)
+        
+        view.backgroundColor = .white
+        
+        setConstraints()
+        
+        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        button.setTitle(message: "Log out")
     }
-    */
+    
+    func setConstraints() {
+        
+        button.snp.makeConstraints { (make) in
+            make.centerX.centerY.equalToSuperview()
+            make.width.equalToSuperview().multipliedBy(0.5)
+            make.height.equalTo(50)
+        }
+    }
+    
+    @objc func buttonTapped() {
+        print("Button tapped")
+        signOutAndRedirect()
+    }
+    
+    
 
 }

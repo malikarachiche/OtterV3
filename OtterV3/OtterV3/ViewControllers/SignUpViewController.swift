@@ -178,6 +178,18 @@ class SignUpViewController: BaseViewController {
         }
     }
     
+    func editName(name: String) {
+        if Auth.auth().currentUser != nil {
+            let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+            changeRequest?.displayName = name
+            changeRequest?.commitChanges(completion: { (error) in
+                if let error = error {
+                    print("There was an error editing the name: \(error)")
+                }
+            })
+        }
+    }
+    
     func animate() {
         if nameTextField.alpha == 0 {
             DispatchQueue.main.async {
@@ -229,6 +241,7 @@ class SignUpViewController: BaseViewController {
             print("Sign up tapped")
             Auth.auth().currentUser?.sendEmailVerification(completion: { (error) in
                 self.animate()
+                self.editName(name: self.nameTextField.text ?? "")
             })
             addUserToDatabase(name: nameTextField.text ?? "", career: careerTextField.text ?? "")
         } else {

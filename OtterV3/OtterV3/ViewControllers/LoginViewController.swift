@@ -147,6 +147,7 @@ class LoginViewController: BaseViewController {
             }
             if user != nil {
                 if Auth.auth().currentUser!.isEmailVerified {
+                    self.getUserFromDatabase()
                     let vc = MainTabBarController()
                     vc.modalPresentationStyle = .fullScreen
                     self.present(vc, animated: true, completion: nil)

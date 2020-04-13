@@ -18,15 +18,10 @@ class UserTests: XCTestCase {
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        
-    }
     
     func testGetters() throws {
-        let user = User(id: "123", email: "mlkarachiche@gmail.com", name: "Malik Arachiche", dateJoined: "April 12, 2020", career: "Software Engineer")
+        let data = ["id": "123", "email": "mlkarachiche@gmail.com", "name": "Malik Arachiche", "dateJoined": "April 12, 2020", "career": "Software Engineer"]
+        let user = User(data: data)
         
         XCTAssertEqual("123", user.getID())
         XCTAssertEqual("mlkarachiche@gmail.com", user.getEmail())
@@ -36,7 +31,8 @@ class UserTests: XCTestCase {
     }
     
     func testAddPost() throws {
-        let user = User(id: "123", email: "mlkarachiche@gmail.com", name: "Malik Arachiche", dateJoined: "April 12, 2020", career: "Software Engineer")
+        let data = ["id": "123", "email": "mlkarachiche@gmail.com", "name": "Malik Arachiche", "dateJoined": "April 12, 2020", "career": "Software Engineer"]
+        let user = User(data: data)
         let post = Post(title: "First post!", category: "Software", author: user, content: "It's lit", dateCreated: "April 12, 2020")
         
         XCTAssertEqual(0, user.getPosts().count)
@@ -53,9 +49,13 @@ class UserTests: XCTestCase {
     }
     
     func testConnections() throws {
-        let malik = User(id: "123", email: "mlkarachiche@gmail.com", name: "Malik Arachiche", dateJoined: "April 12, 2020", career: "Software Engineer")
-        let michael = User(id: "231", email: "michael@gmail.com", name: "Michael", dateJoined: "April 12, 2020", career: "Welder")
-        let sara = User(id: "222", email: "sara@yahoo.com", name: "Sara", dateJoined: "April 12, 2020", career: "Lawyer")
+        let data1 = ["id": "123", "email": "mlk@gmail.com", "name": "Malik", "dateJoined": "April 12, 2020", "career": "Software Engineer"]
+        let data2 = ["id": "231", "email": "michael@gmail.com", "name": "Michael", "dateJoined": "April 12, 2020", "career": "Welder"]
+        let data3 = ["id": "222", "email": "sara@yahoo.com", "name": "Sara", "dateJoined": "April 12, 2020", "career": "Lawyer"]
+        
+        let malik = User(data: data1)
+        let michael = User(data: data2)
+        let sara = User(data: data3)
         
         XCTAssertEqual(0, malik.getConnections().count)
         XCTAssertEqual(0, michael.getConnections().count)
